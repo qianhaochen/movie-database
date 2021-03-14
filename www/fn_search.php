@@ -4,7 +4,6 @@
 </form>
 
 <?php
-
 function search_sql($sql_query, $col_arr) {
     include('fn_display.php');
 
