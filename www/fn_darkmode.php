@@ -25,6 +25,7 @@
 
 <div class="btn-group" role="group" aria-label="Basic example" style="float: right;">
   <button onclick="location.href='home.php'" type="button" class="btn btn-outline-dark">Home</button>
+  <button onclick="location.href='index.php'" type="button" class="btn btn-outline-dark">Index</button>
   <button onclick="darkmode()" type="button" class="btn btn-outline-dark" data-bs-toggle="button" autocomplete="off" aria-pressed="true">Dark mode</button>
 </div>
 

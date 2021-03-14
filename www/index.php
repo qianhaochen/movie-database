@@ -56,12 +56,8 @@
                         <hr>
                         <div class="content">
                             <ul>
-                                <li><a href="/all_movies.php">Browse all movies</a></li>
-                                <li><a href="/search.php">Search movies</a></li>
-                                <li><a href="/popular.php">Most Popular</a></li>
-                                <li><a href="/ratings.php">Top Rated</a></li>
                                 <li><a href="/home.php">Home page</a></li>
-                                <li><a href="/darkmode.php">Dark Mode</a></li>
+                                <li><a href="/darkmode.php">Dark Mode Test</a></li>
                             </ul>
                         </div>
                     </div>
