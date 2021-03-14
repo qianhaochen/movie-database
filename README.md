@@ -38,7 +38,6 @@ This Docker Stack is build for local development and not for production usage.
 
 ### Configuration
 This package comes with default configuration options. You can modify them by creating `.env` file in your root directory.
-To make it easy, just copy the content from `sample.env` file and update the environment variable values as per your need.
 
 ## Web Server
 
