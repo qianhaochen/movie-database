@@ -1,15 +1,32 @@
-<form action="search.php" method="GET">
-    <input type="text" name="query" />
-    <input type="submit" value="Search" />
+<form action="home.php" method="GET">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+            <datalist id="datalistOptions">
+                <option value="Drama">
+                <option value="Comedy">
+                <option value="Family">
+                <option value="Sci-Fi">
+                <option value="Romance">
+            </datalist>
+        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Separated link</a></li>
+        </ul>
+        <input type="submit" value="Search" class="btn btn-outline-secondary" />
+    </div>
 </form>
 
 <?php
-function search_sql($sql_query, $col_arr) {
-    include('fn_display.php');
+function search_sql($sql_query) {
 
     if (!isset($_GET['query'])) {
         $query = "";
-        echo "Search keywords"; //Your code here
     } else {
         $query = $_GET["query"];
         echo $query;
@@ -27,8 +44,10 @@ function search_sql($sql_query, $col_arr) {
         $sql_query = "SELECT * FROM movies 
                     WHERE (movies.mov_title LIKE '%".$query."%')
                     OR (movies.gen_name LIKE '%".$query."%')";
+        
+        return $sql_query;
 
-        display_sql($sql_query, $col_arr);
+        //display_sql($sql_query, $col_arr);
     }
     else{ // if query length is less than minimum
         echo "Minimum length is ".$min_length;

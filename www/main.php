@@ -1,6 +1,6 @@
 <html>
  <head>
-  <title>Index</title>
+  <title>Homepage</title>
 
   <meta charset="utf-8"> 
 

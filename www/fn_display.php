@@ -19,21 +19,14 @@ function display_sql($sql_query, $col_arr) {
 
     $result = mysqli_query($conn, $sql_query) or die(mysqli_error($conn));
 
-    /*$table_head = "SELECT COLUMN_NAME
-    FROM INFORMATION_SCHEMA.COLUMNS
-    WHERE TABLE_SCHEMA = 'my_database' AND TABLE_NAME = 'my_table'";*/
+    echo '<table class="table table-hover" table-striped">';
 
-    echo '<table class="table table-striped">';
-
-    $table_header = '<thead><tr><th></th>';
+    echo '<thead><tr><th></th>';
     foreach ($col_arr as &$value) {
-        $table_header = $table_header.('<th>').($value).('</th>');
+        echo '<th>' . $value . '</th>';
     }
-    $table_header = $table_header.('</tr></thead>');
-    //echo '<thead><tr><th></th><th>2</th><th>3</th><th>4</th></tr></thead>';
-    echo $table_header;
     unset($value);
-
+    echo '</tr></thead>';
     
     while($value = $result->fetch_assoc()){
         echo '<tr>';
