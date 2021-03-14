@@ -1,4 +1,21 @@
-#  LAMP stack built with Docker Compose
+#  Movie Database
+
+The Movie Database is a web application built on Bootstrap, jQuery and LAMP stack built with Docker Compose.
+
+It makes use of the MovieLens data (http://files.grouplens.org/datasets/movielens/ml-latest-small.zip) which consists of information about movies and ratings and tags of movies provided by viewers, etc. The system is intended to enable marketing professionals to analyse how audiences have responded to films that have been released, and to help them understand the market for films that they are planning. It is intended to help them better understand the different kinds of viewers of movies and their varying preferences. The core functions that your system should provide are these:
+
+Use case / function:
+
+- [x] Browsing films in the database (i.e., visual listings of films in the dataset, with user-modifiable views).
+- [x] Searching for a film to obtain a report on viewer reaction to it (i.e., an interpreted report with aggregate viewer ratings,
+etc.).
+- [x] Reporting which are the most popular movies and which are the most polarising (extreme difference in ratings).
+- [ ] Segmenting the audience for a released movie (i.e., identifying categories of viewer by the rating and tag data, also in
+relation to data for ratings to all movies).
+- [ ] Predicting the likely viewer ratings for a soon-to-be-released film based on the tags and or ratings for the film provided by
+a preview panel of viewers drawn from the population of viewers in the database.
+- [ ] Predicting the personality traits of viewers who will give a high rating to a soon-to-be-released film (using the
+personality/ratings dataset from GroupLens) whose tags are known.
 
 ##  Installation
  
