@@ -70,6 +70,18 @@
             ?>
             </div>
         </div>
+        <div class="tab-pane fade" id="nav-polarising" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="container">
+            <?php
+                $sql_query = 'SELECT mov_id, AVG(rating)
+                FROM ratings
+                GROUP BY mov_id
+                ORDER BY AVG(rating) DESC';
+                $col_arr = array('ID', 'Average Ratings');
+                display_sql($sql_query, $col_arr);
+            ?>
+            </div>
+        </div>
     </div>
     
 </body>
