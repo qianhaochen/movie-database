@@ -1,6 +1,6 @@
 #  Movie Database
 
-![Landing Page](/www/Screenshot.png)
+![Landing Page](www/assets/Screenshot.png)
 
 The Movie Database is a web application built on Bootstrap, jQuery and LAMP stack built with Docker Compose.
 
