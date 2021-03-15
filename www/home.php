@@ -28,6 +28,9 @@
         <button class="nav-link" id="nav-ratings-tab" data-bs-toggle="tab" data-bs-target="#nav-ratings" type="button" role="tab" aria-controls="nav-ratings" aria-selected="false">
         Top Rated
         </button>
+        <button class="nav-link" id="nav-polarising-tab" data-bs-toggle="tab" data-bs-target="#nav-polarising" type="button" role="tab" aria-controls="nav-polarising" aria-selected="false">
+        Most Polarising
+        </button>
     </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
