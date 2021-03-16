@@ -142,7 +142,7 @@ update users,table1
 set users.n_rating = table1.n
 where users.id = table1.id;
 
-with table1(id,n) as (SELECT user_id, AVG(rating)
+with table1(id,n) as (SELECT user_id, round(AVG(rating),2)
                 FROM ratings
                 GROUP BY user_id)
 update users,table1
@@ -158,3 +158,5 @@ where users.id = table1.id;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
