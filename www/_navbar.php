@@ -28,7 +28,6 @@
 
 <?php 
 include('_search.php');
-include('_menu.php');
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -54,14 +53,6 @@ include('_menu.php');
             <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>
-            <?php
-              $sql_query = "SELECT gen_name FROM genres ORDER BY gen_id";
-              $conn = mysqli_connect("database", "root", $_ENV['MYSQL_ROOT_PASSWORD'], "movie_lens");
-              $result = mysqli_fetch_array(mysqli_query($conn, $sql_query));
-              while ($rows = mysql_fetch_array($result)) {
-                  echo "<a class='dropdown-item' href='#'>" .$rows['gen_name']. "</a>";
-              }
-            ?>
           </div>
         </li>
 
