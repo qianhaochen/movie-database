@@ -31,7 +31,7 @@ function display_sql($sql_query, $col_arr) {
     
     while($value = $result->fetch_assoc()){
         echo '<tr>';
-        echo '<td><a href="/details.php"><span class="glyphicon glyphicon-search">';
+        echo '<td><a href="/details.php?mov='.$value['mov_id'].'"><span class="glyphicon glyphicon-search">';
         echo '<i class="bi bi-link"></i>'; // search icon of Bootstrap Icons
         echo '</span></a></td>';
         foreach($value as $element){
