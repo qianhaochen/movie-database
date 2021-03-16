@@ -80,8 +80,6 @@
                 <?php
                 $conn = mysqli_connect("database", "root", $_ENV['MYSQL_ROOT_PASSWORD'], "movie_lens");
                 $sql_query = 'SELECT * From movies';
-                /*$sql_query = "SELECT * FROM movies
-                WHERE movies.gen_name = $tab_content";*/
                 $result = mysqli_query($conn, $sql_query) or die(mysqli_error($conn));
         
                 echo '<table class="table table-striped">';

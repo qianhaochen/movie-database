@@ -57,7 +57,7 @@
                         <div class="content">
                             <ul>
                                 <li><a href="/home.php">Home page</a></li>
-                                <li><a href="/darkmode.php">Dark Mode Test</a></li>
+                                <li><a href="/_navbar.php">Navbar Test</a></li>
                             </ul>
                         </div>
                     </div>
