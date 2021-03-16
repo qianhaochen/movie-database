@@ -18,7 +18,7 @@
 
 <?php
 
-include('fn_details.php');
+include('_details.php');
 $col_arr_ratings_count = array('Ratings', 'No');
 display_sql(ratings_count_sql(1), $col_arr_ratings_count);
 $col_arr_tags_count = array('Tags', 'No');

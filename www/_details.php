@@ -1,6 +1,6 @@
 <?php
 
-include('fn_display.php');
+include('_display.php');
 
 function ratings_count_sql($mov_id) {
     $sql_query_ratings_count = "SELECT rating, COUNT(DISTINCT user_id) AS number FROM ratings WHERE mov_id = ".$mov_id." GROUP BY rating ORDER BY rating DESC";

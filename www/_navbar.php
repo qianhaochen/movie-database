@@ -28,16 +28,17 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/index.php">Movie Database</a>
+    <a class="navbar-brand" href="/index.php">
+      <i class="bi bi-film"></i>
+      Movie Database
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="navbar-nav">
 
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/home.php">Home</a>
-        </li>
+        <a class="nav-link active" aria-current="page" href="/home.php">Home</a>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,7 +48,7 @@
 
           <ul class="dropdown-menu">
               <?php 
-              include('genres.php');
+              include('_genres.php');
               ?>
           </ul>
           
@@ -58,7 +59,7 @@
                   <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                       <?php 
-                      include('genres.php');
+                      include('_genres.php');
                       echo $dropdown_menu;
                       ?>
                   </ul>
@@ -68,50 +69,42 @@
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="#">Most Popular</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Top Rated</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Most Polarising</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
+        <a class="nav-link" href="/popular.php">Most Popular</a>
+        <a class="nav-link" href="/top.php">Top Rated</a>
+        <a class="nav-link" href="/polarising.php">Most Polarising</a>
         <button onclick="darkmode()" type="button" class="btn btn-outline-dark" data-bs-toggle="button" autocomplete="off" aria-pressed="true"><i class="bi bi-moon-stars"></i></button>
 
-        
-      </ul>
-      
-      <form action="home.php" method="GET">
-        <div class="input-group">
-          <input type="search" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." aria-label="Search">
-            <datalist id="datalistOptions">
-              <option value="Drama">
-              <option value="Comedy">
-              <option value="Family">
-              <option value="Sci-Fi">
-              <option value="Romance">
-            </datalist>
-          
-          <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="visually-hidden">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-          
-          <input type="submit" value="Search" class="btn btn-outline-success"/>
-        </div>
-      </form>
-
+      </div>
     </div>
+        
+      
+      
+    <form action="home.php" method="GET" class="d-flex">
+      <div class="input-group">
+        <input type="search" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." aria-label="Search">
+          <datalist id="datalistOptions">
+            <option value="Drama">
+            <option value="Comedy">
+            <option value="Family">
+            <option value="Sci-Fi">
+            <option value="Romance">
+          </datalist>
+        
+        <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Separated link</a></li>
+        </ul>
+        
+        <input type="submit" value="Search" class="btn btn-outline-success"/>
+      </div>
+    </form>
+
   </div>
 </nav>
 

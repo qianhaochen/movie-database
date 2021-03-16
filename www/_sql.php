@@ -1,7 +1,8 @@
 <?php
 
+include('_display.php');
+
 // most popular top 10
-include('fn_display.php');
 $sql_query = 'SELECT movies.mov_id, movies.mov_title, COUNT(ratings.rating)
 FROM ratings, movies
 WHERE movies.mov_id = ratings.mov_id
