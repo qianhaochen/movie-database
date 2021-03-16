@@ -1,21 +1,3 @@
-<head>
-        <meta charset="utf-8">
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
-</head>
-
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-
 <?php
 $mov_id = $_GET['mov'];
 
@@ -72,7 +54,6 @@ function rate($number){
     $_5_rate=mysqli_fetch_assoc($result_5_rate);
 
     echo "<li class='list-group-item'>".round($_5_rate["num"]/$avg_rate["num"]*100,1)."%";
-    // 'text-nowrap bd-highlight' style='width: 8rem;'
     print_star(array($number,0,0));
     echo "</li>";
 }
@@ -196,12 +177,7 @@ $link=mysqli_fetch_assoc($result_link);
 <body>
     <div class="container">
     <br />
-    <?php include('fn_darkmode.php');
-    echo "<h1>Movie Database</h1>"; 
-    include('fn_display.php'); 
-    include('fn_search.php');
-    ?>
-    <!-- <a href="https://www.themoviedb.org/movie/8844">hello</a> -->
+    <?php include('_navbar.php');?>
     <div class="card">
     <?php echo "<h2 class='card-header'>".$mov["mov_title"]."</h2>"; ?>
     <?php echo "<h5 class='card-header mb-2 text-muted'>".$mov["gen_name"]."</h5>"; ?>

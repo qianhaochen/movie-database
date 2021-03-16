@@ -13,7 +13,7 @@
 
   <?php 
     $query = search_sql();
-    $sql_query = "SELECT mov_title, gen_name, ave_rating, rating_count
+    $sql_query = "SELECT movies.mov_id, mov_title, gen_name, ave_rating, rating_count
         FROM movies,
            (SELECT mov_id,
             ROUND(AVG(rating),1) AS ave_rating, 
@@ -23,7 +23,7 @@
            ) AS avgratingbymovies
         WHERE (movies.mov_id = avgratingbymovies.mov_id)
         AND (movies.mov_title LIKE '%".$query."%')";
-    $col_arr = array('Title', 'genres', 'Ratings', 'Views');
+    $col_arr = array('ID','Title', 'genres', 'Ratings', 'Views');
     display_sql($sql_query, $col_arr);
   ?>  
   </div>
