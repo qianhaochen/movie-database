@@ -6,7 +6,6 @@
   <?php 
     include('_navbar.php');
     include('_display.php');
-    include('_search.php');
   ?>
   <div class="container">
   <?php echo "<h1>Most Popular</h1>"; ?>

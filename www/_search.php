@@ -1,5 +1,5 @@
 <?php
-function search_sql($sql_query) {
+function search_sql() {
 
     if (!isset($_GET['query'])) {
         $query = "";
@@ -16,12 +16,8 @@ function search_sql($sql_query) {
         $query = htmlspecialchars($query); // changes characters used in html to their equivalents, for example: < to &gt;
         $query = mysqli_real_escape_string($conn, $query); // makes sure nobody uses SQL injection
         mysqli_close($conn);
-    
-        $sql_query = "SELECT * FROM movies 
-                    WHERE (movies.mov_title LIKE '%".$query."%')
-                    OR (movies.gen_name LIKE '%".$query."%')";
         
-        return $sql_query;
+        return $query;
 
     }
     else{ // if query length is less than minimum

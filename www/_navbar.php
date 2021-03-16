@@ -26,6 +26,8 @@
 
 <body>
 
+<?php include('_search.php'); ?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/index.php">
@@ -83,11 +85,12 @@
       <div class="input-group">
         <input type="search" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." aria-label="Search">
           <datalist id="datalistOptions">
-            <option value="Drama">
-            <option value="Comedy">
-            <option value="Family">
-            <option value="Sci-Fi">
-            <option value="Romance">
+            <option value="Forrest Gump">
+            <option value="Shawshank Redemption">
+            <option value="Pulp Fiction">
+            <option value="Silence of the Lambs">
+            <option value="Matrix">
+            <option value="Star Wars">
           </datalist>
         
         <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
