@@ -26,7 +26,10 @@
 
 <body>
 
-<?php include('_search.php'); ?>
+<?php 
+include('_search.php');
+include('_menu.php');
+?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -43,32 +46,23 @@
         <a class="nav-link active" aria-current="page" href="/home.php">Home</a>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Genres
-            <span class="caret"></span>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
           </a>
-
-          <ul class="dropdown-menu">
-              <?php 
-              include('_genres.php');
-              ?>
-          </ul>
-          
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-
-                  <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                      <?php 
-                      include('_genres.php');
-                      echo $dropdown_menu;
-                      ?>
-                  </ul>
-
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <?php
+              $sql_query = "SELECT gen_name FROM genres ORDER BY gen_id";
+              $conn = mysqli_connect("database", "root", $_ENV['MYSQL_ROOT_PASSWORD'], "movie_lens");
+              $result = mysqli_fetch_array(mysqli_query($conn, $sql_query));
+              while ($rows = mysql_fetch_array($result)) {
+                  echo "<a class='dropdown-item' href='#'>" .$rows['gen_name']. "</a>";
+              }
+            ?>
+          </div>
         </li>
 
         <a class="nav-link" href="/popular.php">Most Popular</a>

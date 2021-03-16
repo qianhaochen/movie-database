@@ -11,7 +11,7 @@
   <?php echo "<h1>Most Popular</h1>"; ?>
 
   <?php 
-    $sql_query = 'SELECT mov_title,rating_count, ave_rating
+    $sql_query = 'SELECT mov_id, mov_title,rating_count, ave_rating
     FROM movies,
         (SELECT mov_id,
         ROUND(AVG(rating),1) AS ave_rating, 
@@ -21,7 +21,7 @@
         ) AS avgratingbymovies
     WHERE movies.mov_id = avgratingbymovies.mov_id
     ORDER BY rating_count DESC';
-    $col_arr = array('Title','Views','Average Ratings');
+    $col_arr = array('ID', 'Title','Views','Average Ratings');
     display_sql($sql_query, $col_arr);
   ?>  
   </div>
