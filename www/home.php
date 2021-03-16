@@ -49,11 +49,17 @@
         <div class="tab-pane fade" id="nav-popular" role="tabpanel" aria-labelledby="nav-contact-tab">
             <div class="container">
             <?php
-                $sql_query = 'SELECT mov_id, COUNT(rating)
-                FROM ratings
-                GROUP BY mov_id
-                ORDER BY COUNT(rating) DESC';
-                $col_arr = array('ID', 'Views');
+                $sql_query = 'SELECT movies.mov_id, mov_title,rating_count, ave_rating
+                FROM movies,
+                   (SELECT mov_id,
+                    ROUND(AVG(rating),1) AS ave_rating, 
+                       COUNT(user_id) AS rating_count 
+                    FROM ratings 
+                    GROUP BY mov_id 
+                   ) AS avgratingbymovies
+                WHERE movies.mov_id = avgratingbymovies.mov_id
+                ORDER BY rating_count DESC';
+                $col_arr = array('ID', 'Title','Rating Count','Average Ratings');
                 display_sql($sql_query, $col_arr);
             ?>
             </div>
@@ -61,15 +67,43 @@
         <div class="tab-pane fade" id="nav-ratings" role="tabpanel" aria-labelledby="nav-contact-tab">
             <div class="container">
             <?php
-                $sql_query = 'SELECT mov_id, AVG(rating)
-                FROM ratings
-                GROUP BY mov_id
-                ORDER BY AVG(rating) DESC';
-                $col_arr = array('ID', 'Average Ratings');
+                $sql_query = 'SELECT movies.mov_id, mov_title,rating_count, ave_rating
+                FROM movies,
+                   (SELECT mov_id,
+                    ROUND(AVG(rating),1) AS ave_rating, 
+                       COUNT(user_id) AS rating_count 
+                    FROM ratings 
+                    GROUP BY mov_id 
+                   ) AS avgratingbymovies
+                WHERE movies.mov_id = avgratingbymovies.mov_id
+                ORDER BY ave_rating DESC, rating_count DESC';
+                $col_arr = array('ID', 'Title','Rating Count','Average Ratings');
                 display_sql($sql_query, $col_arr);
             ?>
             </div>
         </div>
+        <div class="tab-pane fade" id="nav-polarising" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="container">
+            <?php
+                $sql_query = 'SELECT movies.mov_id, mov_title,rating_count, rating_dif
+                FROM movies,
+                   (SELECT mov_id,
+                    ROUND(AVG(rating),1) AS ave_rating, 
+                       COUNT(user_id) AS rating_count 
+                    FROM ratings 
+                    GROUP BY mov_id 
+                   ) AS avgratingbymovies,
+                   (SELECT MAX(rating) - MIN(rating) AS rating_dif, 
+                    
+                   mov_id FROM ratings GROUP BY mov_id) AS ratingPolarise
+                WHERE movies.mov_id = avgratingbymovies.mov_id AND movies.mov_id = ratingPolarise.mov_id
+                ORDER BY rating_dif DESC, rating_count DESC';
+                $col_arr = array('ID', 'Title','Rating Count','Rating Difference');
+                display_sql($sql_query, $col_arr);
+            ?>
+            </div>
+        </div>
+
     </div>
     
 </body>
