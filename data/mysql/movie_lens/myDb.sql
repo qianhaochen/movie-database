@@ -155,6 +155,11 @@ with table1(id,n) as (SELECT user_id, COUNT(tag)
 update users,table1
 set users.n_tag = table1.n
 where users.id = table1.id;
+
+INSERT INTO users
+  (id, n_rating, avg_rating, n_tag)
+VALUES
+  (0, 0, 0, 0);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

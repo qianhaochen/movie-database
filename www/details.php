@@ -175,9 +175,8 @@ $link=mysqli_fetch_assoc($result_link);
 
 </head>
 <body>
-    <div class="container">
-    <br />
     <?php include('_navbar.php');?>
+    <div class="container">
     <div class="card">
     <?php echo "<h2 class='card-header'>".$mov["mov_title"]."</h2>"; ?>
     <?php echo "<h5 class='card-header mb-2 text-muted'>".$mov["gen_name"]."</h5>"; ?>
@@ -208,10 +207,40 @@ $link=mysqli_fetch_assoc($result_link);
         <div class="card border-light mb-3">
         <h5 class="card-header bg-transparent">Tags</h5>
             <div class="card-body" style="height:400px;overflow-y:auto">
-            <!-- <form class="d-flex">
-                <input class="form-control" placeholder="New Tags" id="tag" name="tag">
+            <?php echo "<form class='d-flex' name='tag_form' action='".$_SERVER["PHP_SELF"]."?mov=".$mov_id."' method='post'>"?>
+                <input class="form-control" placeholder="Add New Tags" name="tag">
                 <button class="btn btn-outline-dark" type="submit">Add</button>
-            </form> -->
+            </form>
+            <?php
+            function add_tag(){
+                global $con,$mov_id;
+                if(empty($_POST["tag"])){
+                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> Please enter a tag.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>';
+                    return;
+                }
+                $sql = "INSERT INTO tags (user_id, mov_id, tag, time)
+                VALUES (0,".$mov_id.", '".$_POST['tag']."',TIMESTAMP(NOW()));
+                UPDATE users SET n_tag=n_tag+1
+                WHERE id=0";
+                if ($con->multi_query($sql) === TRUE) {
+                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> You add tag '.$_POST['tag'].'. <a href="/details.php?mov='.$mov_id.'" class="alert-link">Referesh</a> to view changes.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>';
+                } else {
+                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> '. $con->error.'
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>';
+                }
+            }
+            if($_SERVER["REQUEST_METHOD"]==="POST"){
+                add_tag();
+            }
+            ?>
             <div class="row gx-3 gy-2 row-cols-auto">
             <?php
             $time = array();
@@ -314,7 +343,8 @@ $link=mysqli_fetch_assoc($result_link);
     </div>
     <?php
     echo "<div class='card-footer'>Links: <a href='http://www.imdb.com/title/tt0".$link["imdb_id"]."/'>imdb</a>, 
-        <a href='https://www.themoviedb.org/movie/".$link["tmdb_id"]."/'>tmdb</a></div>";
+        <a href='https://www.themoviedb.org/movie/".$link["tmdb_id"]."/'>tmdb</a>
+        <a href='test.php'>test</a></div>";
     ?>
     </div>
     </div>
