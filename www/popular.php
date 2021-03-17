@@ -21,7 +21,7 @@
         ) AS avgratingbymovies
     WHERE movies.mov_id = avgratingbymovies.mov_id
     ORDER BY rating_count DESC';
-    $col_arr = array('ID', 'Title','Views','Average Ratings');
+    $col_arr = array('Title','Views','Average Ratings');
     display_sql($sql_query, $col_arr);
   ?>  
   </div>
