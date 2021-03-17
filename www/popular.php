@@ -11,7 +11,7 @@
   <?php echo "<h1>Most Popular</h1>"; ?>
 
   <?php 
-    $sql_query = 'SELECT mov_id, mov_title,rating_count, ave_rating
+    $sql_query = 'SELECT movies.mov_id, mov_title,rating_count, ave_rating
     FROM movies,
         (SELECT mov_id,
         ROUND(AVG(rating),1) AS ave_rating, 

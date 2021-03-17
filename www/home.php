@@ -23,7 +23,7 @@
            ) AS avgratingbymovies
         WHERE (movies.mov_id = avgratingbymovies.mov_id)
         AND (movies.mov_title LIKE '%".$query."%')";
-    $col_arr = array('ID','Title', 'genres', 'Ratings', 'Views');
+    $col_arr = array('Title', 'genres', 'Ratings', 'Views');
     display_sql($sql_query, $col_arr);
   ?>  
   </div>

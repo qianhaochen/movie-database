@@ -29,13 +29,13 @@ function display_sql($sql_query, $col_arr) {
     unset($value);
     echo '</tr></thead>';
     
-    while($value = $result->fetch_assoc()){
+    while($value = $result->fetch_array(MYSQLI_NUM)){
         echo '<tr>';
-        echo '<td><a href="/details.php?mov='.$value['mov_id'].'"><span class="glyphicon glyphicon-search">';
+        echo '<td><a href="/details.php?mov='.$value[0].'"><span class="glyphicon glyphicon-search">';
         echo '<i class="bi bi-link"></i>'; // search icon of Bootstrap Icons
         echo '</span></a></td>';
-        foreach($value as $element){
-            echo '<td>' . $element . '</td>';
+        for($i=1; $i<count($value); $i++){
+            echo '<td>' . $value[$i] . '</td>';
         }
         echo '</tr>';
     }
