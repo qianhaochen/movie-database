@@ -107,7 +107,7 @@ $sql_user_rate_mid = "with rating(id) as (SELECT user_id
                 WHERE mov_id=$mov_id
             )SELECT COUNT(users.id) as num
             FROM users,rating
-            WHERE users.id=rating.id AND users.avg_rating<3.75 AND users.n_rating>3.25";
+            WHERE users.id=rating.id AND users.avg_rating<3.75 AND users.n_rating>=3.25";
 $result_user_rate_mid = mysqli_query($con, $sql_user_rate_mid) or die(mysqli_error($con));
 $user_rate_mid=mysqli_fetch_assoc($result_user_rate_mid);
 
@@ -116,7 +116,7 @@ $sql_user_rate_min = "with rating(id) as (SELECT user_id
                 WHERE mov_id=$mov_id
             )SELECT COUNT(users.id) as num
             FROM users,rating
-            WHERE users.id=rating.id AND users.avg_rating<=3.25";
+            WHERE users.id=rating.id AND users.avg_rating<3.25";
 $result_user_rate_min = mysqli_query($con, $sql_user_rate_min) or die(mysqli_error($con));
 $user_rate_min=mysqli_fetch_assoc($result_user_rate_min);
 
@@ -172,7 +172,7 @@ $link=mysqli_fetch_assoc($result_link);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-
+  
 </head>
 <body>
     <?php include('_navbar.php');?>
@@ -269,66 +269,63 @@ $link=mysqli_fetch_assoc($result_link);
         <h5 class="card-header bg-transparent">Viewers Info</h5>
             <div class="card-body"  style="height:400px;overflow-y:auto">
             <h8 class="card-text">Viewers with different watching experience</h8>
-            <div class="row row-cols-3">
-                <div class="col">
-                <?php echo round($user_mov_max["num"]/$avg_rate["num"]*100,1)."%";?>
-                </div>
-                <div class="col">
-                <?php echo round($user_mov_mid["num"]/$avg_rate["num"]*100,1)."%";?>
-                </div>
-                <div class="col">
-                <?php echo round($user_mov_min["num"]/$avg_rate["num"]*100,1)."%";?>
-                </div>
-                <div class="col text-muted"><small>
-                n&ge;200
-                </small></div>
-                <div class="col text-muted"><small>
-                100&le;n&lt;200
-                </small></div>
-                <div class="col text-muted"><small>
-                n&lt;100
-                </small></div>
-
-            </div>
-            <br/>
+            <!-- <div class="chart-container" style="position: relative; height:387px; width:300px">
+                <canvas id="myChart"></canvas>
+            </div> -->
+            <canvas id="user_watch_chart" width="774" height="386"></canvas>
+            <p id="user_watch" style="visibility: hidden; margin-bottom:0">
+                <span id="user_watch_1">
+                <?php echo round($user_mov_max["num"]/$avg_rate["num"]*100,1);?>
+                </span>
+                <span id="user_watch_2">
+                <?php echo round($user_mov_mid["num"]/$avg_rate["num"]*100,1);?>
+                </span>
+                <span id="user_watch_3">
+                <?php echo round($user_mov_min["num"]/$avg_rate["num"]*100,1);?>
+                </span>
+                <span id="user_watch_4">
+                200
+                </span>
+                <span id="user_watch_5">
+                100
+                </span>
+                </p>
             <h8 class="card-text">Viewers who tends to rate higher</h8>
-            <div class="row row-cols-3">
-                <div class="col">
-                <?php echo round($user_rate_max["num"]/$avg_rate["num"]*100,1)."%";?>
-                </div>
-                <div class="col">
-                <?php echo round($user_rate_mid["num"]/$avg_rate["num"]*100,1)."%";?>
-                </div>
-                <div class="col">
-                <?php echo round($user_rate_min["num"]/$avg_rate["num"]*100,1)."%";?>
-                </div>
-                <div class="col text-muted"><small>
-                n&ge;3.75
-                </small></div>
-                <div class="col text-muted"><small>
-                3.25&lt;n&lt;3.75
-                </small></div>
-                <div class="col text-muted"><small>
-                n&le;3.25
-                </small></div>
-            </div>
-            <br/>
+            <canvas id="user_rate_chart" width="774" height="386"></canvas>
+            <p id="user_rate" style="visibility: hidden; margin-bottom:0">
+                <span id="user_rate_1">
+                <?php echo round($user_rate_max["num"]/$avg_rate["num"]*100,1);?>
+                </span>
+                <span id="user_rate_2">
+                <?php echo round($user_rate_mid["num"]/$avg_rate["num"]*100,1);?>
+                </span>
+                <span id="user_rate_3">
+                <?php echo round($user_rate_min["num"]/$avg_rate["num"]*100,1);?>
+                </span>
+                <span id="user_rate_4">
+                3.75
+                </span>
+                <span id="user_rate_5">
+                3.25
+                </span>
+                </p>
             <h8 class="card-text">Viewers who tags or not</h8>
-            <div class="row row-cols-2">
-                <div class="col">
-                <?php echo round($user_tag["num"]/$avg_rate["num"]*100,1)."%";?>
-                </div>
-                <div class="col">
-                <?php echo round($user_no_tag["num"]/$avg_rate["num"]*100,1)."%";?>
-                </div>
-                <div class="col text-muted"><small>
-                never tagged
-                </small></div>
-                <div class="col text-muted"><small>
+            <canvas id="user_tag_chart" width="774" height="386"></canvas>
+            <p id="user_tag" style="visibility: hidden; margin-bottom:0">
+                <span id="user_tag_1">
+                <?php echo round($user_tag["num"]/$avg_rate["num"]*100,1);?>
+                </span>
+                <span id="user_tag_2">
+                <?php echo round($user_no_tag["num"]/$avg_rate["num"]*100,1);?>
+                </span>
+                <span id="user_tag_4">
                 have tagged
-                </small></div>
-            </div>
-            <br/>
+                </span>
+                <span id="user_tag_5">
+                never tagged
+                </span>
+                </p>
+            
             <h8 class="card-text">Most liked genres</h8>
             <ul class="list-group list-group-flush">
             <?php
@@ -343,11 +340,13 @@ $link=mysqli_fetch_assoc($result_link);
     </div>
     <?php
     echo "<div class='card-footer'>Links: <a href='http://www.imdb.com/title/tt0".$link["imdb_id"]."/'>imdb</a>, 
-        <a href='https://www.themoviedb.org/movie/".$link["tmdb_id"]."/'>tmdb</a>
-        <a href='test.php'>test</a></div>";
+        <a href='https://www.themoviedb.org/movie/".$link["tmdb_id"]."/'>tmdb</a>";
+        // <a href='test.php'>test</a></div>";
     ?>
     </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="chart.js"></script>
 
 </body>
 </html>
