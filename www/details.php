@@ -214,17 +214,24 @@ $link=mysqli_fetch_assoc($result_link);
             <?php
             function add_tag(){
                 global $con,$mov_id;
-                if(empty($_POST["tag"])){
+                $tag = rtrim(ltrim($_POST["tag"]));
+                if(empty($tag)){
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Error!</strong> Please enter a tag.
+                    <strong>Empty!</strong> Please enter a tag.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>';
                     return;
+                } else if (!preg_match("/^[\w\(\)\-\s\|\:]{1,50}$/", $tag, $matches)){
+                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Invalid format!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>';
+                  return;
                 }
-                $sql = "INSERT INTO tags (user_id, mov_id, tag, time)
-                VALUES (0,".$mov_id.", '".$_POST['tag']."',TIMESTAMP(NOW()));
+                $sql = sprintf("INSERT INTO tags (user_id, mov_id, tag, time)
+                VALUES (0,'%s', '%s',TIMESTAMP(NOW()));
                 UPDATE users SET n_tag=n_tag+1
-                WHERE id=0";
+                WHERE id=0",mysqli_real_escape_string($con,$mov_id), mysqli_real_escape_string($con,$tag));
                 if ($con->multi_query($sql) === TRUE) {
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>Success!</strong> You add tag '.$_POST['tag'].'. <a href="/details.php?mov='.$mov_id.'" class="alert-link">Referesh</a> to view changes.
@@ -232,7 +239,7 @@ $link=mysqli_fetch_assoc($result_link);
                   </div>';
                 } else {
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Error!</strong> '. $con->error.'
+                    <strong>Connection Error!</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>';
                 }
