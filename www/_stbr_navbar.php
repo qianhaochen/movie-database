@@ -44,10 +44,10 @@ include('_search.php');
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       
         <li class="nav-item">
-          <a class="nav-link active" href="/home.php">Movielens</a>
+          <a class="nav-link " href="/home.php">Movielens</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/stbr_movies.php">Soon-to-be-released</a>
+          <a class="nav-link active" aria-current="page" href="/stbr_movies.php">Soon-to-be-released</a>
         </li>
         
       </ul>
@@ -61,9 +61,11 @@ include('_search.php');
   <nav class="nav nav-underline" aria-label="Secondary navigation">
 
     <a class="nav-link active" aria-current="page" href="/home.php">All</a>
-    <a class="nav-link" href="/popular.php">Most Popular</a>
+    <a class="nav-link" href="/popular.php">Predict a rating!</a>
+    <a class="nav-link" href="/top.php">Top Rated</a>
+    <a class="nav-link" href="/polarising.php">Most Polarising</a>
     
-    <form action="home.php" method="GET" class="d-flex justify-content-end" style=' margin-left: 135px; margin-top: 4px; margin-right: 10px; width:1000px'>
+    <form action="stbr_movies.php" method="GET" class="d-flex justify-content-end" style=' margin-left: 135px; margin-top: 4px; margin-right: 10px; width:1000px'>
       <div class="input-group">
         <input type="search" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Search for movies, genres..." aria-label="Search">
           <datalist id="datalistOptions">

@@ -46,7 +46,7 @@ include('_search.php');
           <a class="nav-link active" aria-current="page" href="/home.php">Movielens</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/popular.php">Soon-to-be-released</a>
+          <a class="nav-link" href="/stbr_movies.php">Soon-to-be-released</a>
         </li>
         
       </ul>
