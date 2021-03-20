@@ -61,9 +61,8 @@ include('_search.php');
   <nav class="nav nav-underline" aria-label="Secondary navigation">
 
     <a class="nav-link active" aria-current="page" href="/home.php">All</a>
-    <a class="nav-link" href="/popular.php">Predict a rating!</a>
-    <a class="nav-link" href="/top.php">Top Rated</a>
-    <a class="nav-link" href="/polarising.php">Most Polarising</a>
+    <a class="nav-link" href="/predict_ave_rating.php">Predict average rating</a>
+
     
     <form action="stbr_movies.php" method="GET" class="d-flex justify-content-end" style=' margin-left: 135px; margin-top: 4px; margin-right: 10px; width:1000px'>
       <div class="input-group">
