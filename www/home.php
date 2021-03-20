@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Homepage</title>
+    <title>Movies</title>
 </head>
 <body>
   <?php 
@@ -9,21 +9,22 @@
   ?>
 
   <div class="container">
-  <?php echo "<h1>All movies</h1>"; ?>
 
   <?php 
     $query = search_sql();
-    $sql_query = "SELECT movies.mov_id, mov_title, ave_rating, rating_count
-        FROM movies,
-           (SELECT mov_id,
+    $sql_query = "SELECT m_id, title,gens,ave_rating,rating_count FROM
+    (SELECT moviesGenresRelation.mov_id AS m_id, movies.mov_title AS title, GROUP_CONCAT(DISTINCT gen_name SEPARATOR ', ') AS gens
+        FROM moviesGenresRelation, genres,movies
+        WHERE moviesGenresRelation.genre_id = genres.gen_id AND movies.mov_id = moviesGenresRelation.mov_id AND movies.mov_title LIKE '%".$query."%'
+        GROUP BY moviesGenresRelation.mov_id) as gennames,
+    (SELECT mov_id,
             ROUND(AVG(rating),1) AS ave_rating, 
                COUNT(user_id) AS rating_count 
             FROM ratings 
             GROUP BY mov_id 
            ) AS avgratingbymovies
-        WHERE (movies.mov_id = avgratingbymovies.mov_id)
-        AND (movies.mov_title LIKE '%".$query."%')";
-    $col_arr = array('Title', 'Ratings', 'Views');
+    WHERE avgratingbymovies.mov_id = gennames.m_id";
+    $col_arr = array( 'Title','Genres','Rating', 'views');
     display_sql($sql_query, $col_arr);
   ?>  
   </div>
