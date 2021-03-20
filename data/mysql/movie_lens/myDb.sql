@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS `movies` (
    PRIMARY KEY ( `mov_id` )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
 LOAD DATA LOCAL INFILE '/var/lib/mysql/movie_lens/ml-latest-small/movies.csv' INTO TABLE movies
 CHARACTER SET 'utf8'
 FIELDS TERMINATED BY ','
@@ -51,6 +53,16 @@ LINES TERMINATED BY '\n';
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` INT UNSIGNED PRIMARY KEY
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `userCorrelation` (
+  `user_1` INT UNSIGNED 
+  `user_2` INT UNSIGNED 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `noRatingUserMovie` (
+  `user_id` INT UNSIGNED 
+  `mov_id` INT UNSIGNED 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOAD DATA LOCAL INFILE '/var/lib/mysql/movie_lens/ml-latest-small/users.csv' INTO TABLE users
@@ -160,8 +172,72 @@ INSERT INTO users
   (id, n_rating, avg_rating, n_tag)
 VALUES
   (0, 0, 0, 0);
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+INSERT INTO `userCorrelation` (user_1,user_2)
+SELECT user_covariance_1.user_1, user_covariance_1.user_2, user_covariance_1.pd/SQRT(user_covariance_2.pd*user_covariance_3.pd) AS corr FROM
+(SELECT user_1, user_2, sum(product) AS pd
+FROM
+(SELECT ratings_.user_id AS user_1, ratings_1.user_id AS user_2, ratings_.rating*ratings_1.rating as product
+FROM (SELECT mov_id,user_id,rating FROM ratings) AS ratings_
+INNER JOIN
+(SELECT mov_id,user_id,rating FROM ratings) AS ratings_1
+ON ratings_.mov_id=ratings_1.mov_id) as rr
+GROUP BY user_1, user_2
+ ) AS user_covariance_1
+INNER JOIN (SELECT user_1, user_2, sum(product) AS pd
+FROM
+(SELECT ratings_.user_id AS user_1, ratings_1.user_id AS user_2, ratings_.rating*ratings_1.rating as product
+FROM (SELECT mov_id,user_id,rating FROM ratings) AS ratings_
+INNER JOIN
+(SELECT mov_id,user_id,rating FROM ratings) AS ratings_1
+ON ratings_.mov_id=ratings_1.mov_id) as rr
+GROUP BY user_1, user_2
+ ) AS user_covariance_2
+ON user_covariance_1.user_1=user_covariance_2.user_1 AND user_covariance_1.user_1=user_covariance_2.user_2
+INNER JOIN (SELECT user_1, user_2, sum(product) AS pd
+FROM
+(SELECT ratings_.user_id AS user_1, ratings_1.user_id AS user_2, ratings_.rating*ratings_1.rating as product
+FROM (SELECT mov_id,user_id,rating FROM ratings) AS ratings_
+INNER JOIN
+(SELECT mov_id,user_id,rating FROM ratings) AS ratings_1
+ON ratings_.mov_id=ratings_1.mov_id) as rr
+GROUP BY user_1, user_2
+ ) AS user_covariance_3
+ON user_covariance_1.user_2=user_covariance_3.user_1 AND user_covariance_1.user_2=user_covariance_3.user_2;
+
+
+
+
+CREATE TABLE IF NOT EXISTS `releaseSoonMovies`(
+SELECT mov_id, mov_title from movies ORDER by rand() limit 50
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `userMovieNotRated` (user_id,mov_id)
+SELECT users.user_id, movs.mov_id 
+FROM (SELECT DISTINCT user_id, 1 AS joiner FROM ratings) users 
+INNER JOIN (SELECT mov_id, 1 AS joiner FROM releaseSoonMovies) movs 
+ON users.joiner=movs.joiner 
+LEFT JOIN (SELECT user_id,mov_id,rating from ratings ) AS all_ratings 
+ON users.user_id=all_ratings.user_id AND movs.mov_id=all_ratings.mov_id 
+WHERE all_ratings.user_id is NULL AND all_ratings.mov_id is NULL;
+
+CREATE TABLE IF NOT EXISTS `predictedRatings`(
+SELECT userMovieNotRated.user_id,userMovieNotRated.mov_id, 
+aves_target.avg_rating + SUM((ratings.rating-aves.avg_rating)*userCorrelation.corr)/ SUM(corr) 
+AS prediction 
+FROM ratings, userCorrelation, userMovieNotRated,
+(SELECT user_id, AVG(rating) AS avg_rating FROM ratings GROUP BY user_id) 
+AS aves, 
+(SELECT user_id, AVG(rating) AS avg_rating FROM ratings GROUP BY user_id) 
+AS aves_target
+WHERE ratings.mov_id =userMovieNotRated.mov_id 
+AND userMovieNotRated.mov_id IN (SELECT mov_id FROM releaseSoonMovies) 
+AND ratings.user_id = aves.user_id 
+AND userCorrelation.user_1 = ratings.user_id 
+AND userCorrelation.user_2 = userMovieNotRated.user_id 
+AND aves_target.user_id = userMovieNotRated.user_id 
+GROUP BY userMovieNotRated.user_id, userMovieNotRated.mov_id
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
