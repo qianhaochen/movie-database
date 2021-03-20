@@ -8,7 +8,13 @@
     include('_display.php');
   ?>
   <div class="container">
-  <?php echo "<h4>Most Popular</h4>"; ?>
+  <div class="d-flex align-items-center p-3 my-3 text-white bg-secondary rounded shadow-sm">
+    <div class="lh-1">
+      <h1 class="h6 mb-0 text-white lh-1">Most popular</h1>
+      <small>Find the movies that has been rated the most. </small>
+    </div>
+  </div>
+
 
 
 

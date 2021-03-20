@@ -10,6 +10,13 @@
 
   <div class="container">
 
+  <div class="d-flex align-items-center p-3 my-3 text-white bg-secondary rounded shadow-sm">
+    <div class="lh-1">
+      <h1 class="h6 mb-0 text-white lh-1">Soon-to-be-released movies</h1>
+      <small>We select 50 movies randomly from movielens dataset and assume that these 50 are soon-to-be-released. Then we predict ratings for users that hasn't rated these movies yet by using user-based collaborative filtering algorithm </small>
+    </div>
+    </div>
+
   <?php 
     $query = search_sql();
     $sql_query = "SELECT m_id, title,gens,ave_rating,rating_count FROM

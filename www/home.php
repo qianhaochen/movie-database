@@ -9,6 +9,12 @@
   ?>
 
   <div class="container">
+  <div class="d-flex align-items-center p-3 my-3 text-white bg-secondary rounded shadow-sm">
+    <div class="lh-1">
+      <h1 class="h6 mb-0 text-white lh-1">All movies</h1>
+      <small>9742 results</small>
+    </div>
+  </div>
 
   <?php 
     $query = search_sql();
