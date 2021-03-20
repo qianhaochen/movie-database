@@ -179,7 +179,6 @@ $link=mysqli_fetch_assoc($result_link);
     <div class="container">
     <div class="card">
     <?php echo "<h2 class='card-header'>".$mov["mov_title"]."</h2>"; ?>
-    <?php echo "<h5 class='card-header mb-2 text-muted'>".$mov["gen_name"]."</h5>"; ?>
     <div class="card-body">
         <div class="card-group">
         <div class="card border-light mb-3">
