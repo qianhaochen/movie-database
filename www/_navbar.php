@@ -65,7 +65,7 @@ include('_search.php');
     <a class="nav-link" href="/polarising.php">Most Polarising</a>
     <form action="home.php" method="GET" class="d-flex justify-content-end" style=' margin-left: 135px; margin-top: 4px; margin-right: 10px; width:1000px'>
       <div class="input-group">
-        <input type="search" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Search for movies, genres..." aria-label="Search">
+        <input type="search" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Search for movies..." aria-label="Search">
           <datalist id="datalistOptions">
             <option value="Forrest Gump">
             <option value="Shawshank Redemption">

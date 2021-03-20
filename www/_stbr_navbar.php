@@ -61,12 +61,13 @@ include('_search.php');
   <nav class="nav nav-underline" aria-label="Secondary navigation">
 
     <a class="nav-link active" aria-current="page" href="/home.php">All</a>
-    <a class="nav-link" href="/predict_ave_rating.php">Predict average rating</a>
+    <a class="nav-link" href="/predict_ave_rating.php">Predict average ratings</a>
+    <a class="nav-link" href="/predict_likely_rating.php">Predict average ratings (most likely)</a>
 
     
-    <form action="stbr_movies.php" method="GET" class="d-flex justify-content-end" style=' margin-left: 135px; margin-top: 4px; margin-right: 10px; width:1000px'>
+    <form action="stbr_movies.php" method="GET" class="d-flex justify-content-end" style=' margin-left: 155px; margin-top: 4px; margin-right: 10px; width:1200px'>
       <div class="input-group">
-        <input type="search" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Search for movies, genres..." aria-label="Search">
+        <input type="search" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Search for movies..." aria-label="Search">
           <datalist id="datalistOptions">
             <option value="Forrest Gump">
             <option value="Shawshank Redemption">

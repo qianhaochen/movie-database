@@ -39,4 +39,7 @@
     display_sql($sql_query, $col_arr);
   ?>  
   </div>
-</body>
+  <?php 
+    include('footer.php');
+
+  ?>
