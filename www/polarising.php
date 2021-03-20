@@ -9,10 +9,10 @@
   ?>
 
   <div class="container">
-  <?php echo "<h1>Most Polarising</h1>"; ?>
+  <?php echo "<h4>Most Polarising</h4>"; ?>
 
   <?php
-    $sql_query = 'SELECT movies.mov_id, mov_title,rating_count, rating_dif
+    $sql_query = 'SELECT movies.mov_id, mov_title,ave_rating ,rating_count, rating_dif
     FROM movies,
       (SELECT mov_id,
         ROUND(AVG(rating),1) AS ave_rating, 
@@ -25,7 +25,7 @@
       mov_id FROM ratings GROUP BY mov_id) AS ratingPolarise
     WHERE movies.mov_id = avgratingbymovies.mov_id AND movies.mov_id = ratingPolarise.mov_id
     ORDER BY rating_dif DESC, rating_count DESC';
-    $col_arr = array('Title','Rating Count','Rating Difference');
+    $col_arr = array('Title','Ratings','Views','Rating Difference');
     display_sql($sql_query, $col_arr);
   ?>
   </div>
