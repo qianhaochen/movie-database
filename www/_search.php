@@ -13,7 +13,7 @@ function search_sql() {
     $min_length = 0;
     
     if(strlen($query) >= $min_length){ // if query length is more or equal minimum length then
-        $conn = mysqli_connect("database", "root", $_ENV['MYSQL_ROOT_PASSWORD'], "movie_lens");
+        $conn = mysqli_connect("database", "user", "user", "movie_lens");
         $query = htmlspecialchars($query); // changes characters used in html to their equivalents, for example: < to &gt;
         $query = mysqli_real_escape_string($conn, $query); // makes sure nobody uses SQL injection
         mysqli_close($conn);

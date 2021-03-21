@@ -9,7 +9,7 @@
 
 <?php
 function display_sql($sql_query, $col_arr) {
-    $conn = mysqli_connect("database", "root", $_ENV['MYSQL_ROOT_PASSWORD'], "movie_lens");
+    $conn = mysqli_connect("database", "user", "user", "movie_lens");
 
     if (!$conn) {
         echo "Error: Unable to connect to MySQL." . PHP_EOL;

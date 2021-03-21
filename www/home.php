@@ -9,7 +9,7 @@
 
 
 
-    $con = mysqli_connect("database", "root", $_ENV['MYSQL_ROOT_PASSWORD'], "movie_lens");
+    $con = mysqli_connect("database", "user", "user", "movie_lens");
 if (!$con) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
