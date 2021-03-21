@@ -157,7 +157,7 @@ $genre_size = sizeof($genres);
     $sql_query = "SELECT m_id, title,gens,ave_rating,rating_count FROM
     (SELECT moviesGenresRelation.mov_id AS m_id, movies.mov_title AS title, GROUP_CONCAT(DISTINCT gen_name SEPARATOR ', ') AS gens
         FROM moviesGenresRelation, genres,movies
-        WHERE moviesGenresRelation.genre_id = genres.gen_id AND movies.mov_id = moviesGenresRelation.mov_id AND movies.mov_title LIKE '%".$query."%'
+        WHERE moviesGenresRelation.genre_id = genres.gen_id AND movies.mov_id = moviesGenresRelation.mov_id 
         GROUP BY moviesGenresRelation.mov_id) as gennames,
     (SELECT mov_id,
             ROUND(AVG(rating),1) AS ave_rating, 
@@ -165,10 +165,16 @@ $genre_size = sizeof($genres);
             FROM ratings 
             GROUP BY mov_id 
            ) AS avgratingbymovies
-    WHERE avgratingbymovies.mov_id = gennames.m_id";
+    WHERE avgratingbymovies.mov_id = gennames.m_id AND (title LIKE '%".$query."%' OR gens LIKE '%".$query."%')";
     $col_arr = array( 'Title','Genres','Rating', 'views');
     display_sql($sql_query, $col_arr);
   }
+
+
+
+
+
+
 
 
 
