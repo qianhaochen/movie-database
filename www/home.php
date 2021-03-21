@@ -61,11 +61,6 @@ $genre_size = sizeof($genres);
                     ?>
                 /> <?=$gen['gen_name'];?>
 
-
-      
-                
-
-
                 <?php
 
 
@@ -80,7 +75,19 @@ $genre_size = sizeof($genres);
               foreach ($result_genres as $gen){
                 $i++;
                 if($i > 10){
-                echo "<input type='checkbox' name='genres[]' class='checkbox' value = '".$gen['gen_id']."' />".$gen['gen_name'];
+
+
+                  ?> 
+                  <input type='checkbox' name='genres[]' class='checkbox' value = '<?=$gen['gen_id'];?>'
+                      <?php
+                        if(in_array($gen['gen_id'],$checked)){echo "checked";}
+                      ?>
+                  /> <?=$gen['gen_name'];?>
+  
+                  <?php
+
+
+
                 }
                 if($i == 20) break;
               }
@@ -106,6 +113,46 @@ $genre_size = sizeof($genres);
 
 
   <?php 
+    if(isset($_GET["genres"])){
+      $gen_checked = [];
+      $gen_checked =$_GET["genres"];
+      foreach($gen_checked as $gen_){
+        
+      }
+
+
+      $sql_gens_to_search ="SELECT gen_name FROM genres WHERE gen_id IN (" . implode(',', $gen_checked) . ")";
+      $res_genres = mysqli_query($con, $sql_gens_to_search) or die(mysqli_error($con));
+      $genres_search=mysqli_fetch_all($res_genres);
+      
+      $keywords = array();
+      for ($i = 0; $i < sizeof($genres_search); ++$i) {
+        $x = str_replace(' ', '', $genres_search[$i][0]);
+        $x = $genres_search[$i][0];
+        array_push($keywords, trim($x));
+      }
+      
+      $keywords_str = implode("|",$keywords);
+      $keywords_str = str_replace(' ', '', $keywords_str);
+
+    $sql_query = "SELECT m_id, title,gens,ave_rating,rating_count 
+    FROM (SELECT moviesGenresRelation.mov_id AS m_id, movies.mov_title AS title, 
+    GROUP_CONCAT(DISTINCT gen_name SEPARATOR ', ') AS gens 
+    FROM moviesGenresRelation, genres,movies 
+    WHERE moviesGenresRelation.genre_id = genres.gen_id 
+    AND movies.mov_id = moviesGenresRelation.mov_id 
+    GROUP BY moviesGenresRelation.mov_id) as gennames, 
+    (SELECT mov_id, ROUND(AVG(rating),1) AS ave_rating, 
+    COUNT(user_id) AS rating_count 
+    FROM ratings GROUP BY mov_id ) 
+    AS avgratingbymovies WHERE avgratingbymovies.mov_id = gennames.m_id 
+    AND gens REGEXP '".$keywords_str."'";
+    $col_arr = array( 'Title','Genres','Rating', 'views');
+    display_sql($sql_query, $col_arr);
+
+    }
+    else{
+
     $query = search_sql();
     $sql_query = "SELECT m_id, title,gens,ave_rating,rating_count FROM
     (SELECT moviesGenresRelation.mov_id AS m_id, movies.mov_title AS title, GROUP_CONCAT(DISTINCT gen_name SEPARATOR ', ') AS gens
@@ -121,6 +168,10 @@ $genre_size = sizeof($genres);
     WHERE avgratingbymovies.mov_id = gennames.m_id";
     $col_arr = array( 'Title','Genres','Rating', 'views');
     display_sql($sql_query, $col_arr);
+  }
+
+
+
   ?>  
   </div>
  
