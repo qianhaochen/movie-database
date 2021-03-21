@@ -66,16 +66,9 @@ include('_search.php');
     <a class="nav-link" href="/popular.php">Most Popular</a>
     <a class="nav-link" href="/top.php">Top Rated</a>
     <a class="nav-link" href="/polarising.php">Most Polarising</a>
-    <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Genres</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown01">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
+    
 
-    <form action="home.php" method="GET" class="d-flex justify-content-end" style=' margin-left: 135px; margin-top: 4px; margin-right: 10px; width:1000px'>
+    <form action="home.php" method="GET" class="d-flex justify-content-end" style=' margin-left: 135px; margin-top: 4px; margin-right: 10px; width:1200px'>
       <div class="input-group">
         <input type="search" name="query" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Search for movies..." aria-label="Search">
           <datalist id="datalistOptions">

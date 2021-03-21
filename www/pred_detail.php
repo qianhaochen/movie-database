@@ -63,6 +63,19 @@ $rating_info=mysqli_fetch_assoc($result_rating_info);
 
 
 
+$sql_genres ="SELECT releaseSoonMovies.mov_id AS m_id, releaseSoonMovies.mov_title AS title, 
+GROUP_CONCAT(DISTINCT gen_name SEPARATOR ', ') AS gens
+        FROM moviesGenresRelation, genres,releaseSoonMovies
+        WHERE moviesGenresRelation.genre_id = genres.gen_id 
+        AND releaseSoonMovies.mov_id = moviesGenresRelation.mov_id 
+        AND releaseSoonMovies.mov_id =$mov_id
+        GROUP BY moviesGenresRelation.mov_id";
+$result_genres = mysqli_query($con, $sql_genres) or die(mysqli_error($con));
+$genres=mysqli_fetch_assoc($result_genres);
+
+
+
+
 ?>
 
 <html>
@@ -120,11 +133,10 @@ chart.render();
   <div class="container">
 
   <?php
-                echo "<h4 class='display-3''>".$mov["mov_title"]."</h4>";
+                echo "<h1 class='display-3''>".$mov["mov_title"]."</h1>";
 
+                echo "<p style = ' font-size:150%; margin-top: 15px; color:grey;'>".$genres["gens"]."</p>";
           ?>
-
-    <p style = ' font-size:150%;'>Genres:asdhcal</p>
   </div>
 </div>
 
@@ -173,7 +185,7 @@ chart.render();
 </main>
 
 
-<div id="chartContainer" style="height: 370px; width: 80%;margin-top: 12px; margin-left: auto;margin-right: auto;"></div>
+<div id="chartContainer" style="height: 370px; width: 80%;margin-top: 20px; margin-left: auto;margin-right: auto;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <?php 
