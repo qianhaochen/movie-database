@@ -15,6 +15,7 @@
     </div>
   </div>
 
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
   <?php 
     $query = search_sql();
     $sql_query = "SELECT stbr_id, mov_title, raters, ave_rating, unraters, ave_prediction 
@@ -33,6 +34,7 @@
     $col_arr = array( 'Title','Users rated','Average rating', 'Users to predict','Average prediction');
     display_sql_stbr($sql_query, $col_arr);
   ?>  
+  </div>
   </div>
   <?php 
     include('footer.php');

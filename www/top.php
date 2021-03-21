@@ -15,7 +15,7 @@
       <small>Find the movies with the best average rating. </small>
     </div>
   </div>
-
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
   <?php 
     $sql_query = 'SELECT m_id, title,gens,ave_rating,rating_count FROM
     (SELECT moviesGenresRelation.mov_id AS m_id, 
@@ -36,6 +36,7 @@
     $col_arr = array('Title','Genres', 'Ratings', 'Views');
     display_sql($sql_query, $col_arr);
   ?>  
+  </div>
   </div>
   <?php 
     include('footer.php');

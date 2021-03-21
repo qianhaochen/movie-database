@@ -16,7 +16,7 @@
       <small style = ' font-size:85%; '>We select 50 movies randomly from movielens dataset and assume that these 50 are soon-to-be-released. Then we predict ratings for users that hasn't rated these movies yet by using user-based collaborative filtering algorithm </small>
     </div>
     </div>
-
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
   <?php 
     $query = search_sql();
     $sql_query = "SELECT m_id, title,gens,ave_rating,rating_count FROM
@@ -34,6 +34,7 @@
     $col_arr = array( 'Title','Genres','Rating', 'views');
     display_sql_stbr($sql_query, $col_arr);
   ?>  
+  </div>
   </div>
   <?php 
     include('footer.php');

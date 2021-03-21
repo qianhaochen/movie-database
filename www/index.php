@@ -56,8 +56,8 @@
                         <hr>
                         <div class="content">
                             <ul>
-                                <li><a href="/home.php">Home page</a></li>
-                                <li><a href="/_navbar.php">Navbar Test</a></li>
+                                <li><a href="/home.php">Browse all movies</a></li>
+                                <li><a href="/stbr_movies.php">Browse soon-to-be-released movies</a></li>
                             </ul>
                         </div>
                     </div>

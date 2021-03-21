@@ -16,7 +16,7 @@
       <small>Find the movies with the most polarising ratings. </small>
     </div>
   </div>
-
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
   <?php
     $sql_query = 'SELECT movies.mov_id, mov_title,ave_rating ,rating_count, rating_dif
     FROM movies,
@@ -34,6 +34,7 @@
     $col_arr = array('Title','Ratings','Views','Rating Difference');
     display_sql($sql_query, $col_arr);
   ?>
+  </div>
   </div>
   <?php 
     include('footer.php');
