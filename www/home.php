@@ -89,7 +89,7 @@ $genre_size = sizeof($genres);
 
 
                 }
-                if($i == 20) break;
+                if($i == 19) break;
               }
           ?>          
         </div>
