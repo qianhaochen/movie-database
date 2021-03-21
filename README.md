@@ -12,9 +12,9 @@ Todos:
 - [x] 2. Searching for a film to obtain a report on viewer reaction to it (i.e., an interpreted report with aggregate viewer ratings,
 etc.).
 - [x] 3. Reporting which are the most popular movies and which are the most polarising (extreme difference in ratings).
-- [ ] 4. Segmenting the audience for a released movie (i.e., identifying categories of viewer by the rating and tag data, also in
+- [x] 4. Segmenting the audience for a released movie (i.e., identifying categories of viewer by the rating and tag data, also in
 relation to data for ratings to all movies).
-- [ ] 5. Predicting the likely viewer ratings for a soon-to-be-released film based on the tags and or ratings for the film provided by
+- [x] 5. Predicting the likely viewer ratings for a soon-to-be-released film based on the tags and or ratings for the film provided by
 a preview panel of viewers drawn from the population of viewers in the database.
 
 ##  Installation

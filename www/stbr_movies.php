@@ -32,7 +32,7 @@
            ) AS avgratingbymovies
     WHERE avgratingbymovies.mov_id = gennames.m_id";
     $col_arr = array( 'Title','Genres','Rating', 'views');
-    display_sql($sql_query, $col_arr);
+    display_sql_stbr($sql_query, $col_arr);
   ?>  
   </div>
   <?php 

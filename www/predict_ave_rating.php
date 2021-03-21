@@ -31,7 +31,7 @@
     AND movies.mov_id = predictions.stbr_id
     ORDER BY ave_prediction DESC";
     $col_arr = array( 'Title','Users rated','Average rating', 'Users to predict','Average prediction');
-    display_sql($sql_query, $col_arr);
+    display_sql_stbr($sql_query, $col_arr);
   ?>  
   </div>
   <?php 

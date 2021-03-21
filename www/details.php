@@ -35,7 +35,7 @@ if (!$con) {
     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
     exit;
 }
-$sql_mov = "SELECT mov_title, gen_name FROM movies WHERE mov_id=$mov_id";
+$sql_mov = "SELECT mov_title FROM movies WHERE mov_id=$mov_id";
 $result_mov = mysqli_query($con, $sql_mov) or die(mysqli_error($con));
 $mov=mysqli_fetch_assoc($result_mov);
 
@@ -163,6 +163,7 @@ $result_link = mysqli_query($con, $sql_link) or die(mysqli_error($con));
 $link=mysqli_fetch_assoc($result_link);
 
 ?>
+
 <html>
 <head>
     

@@ -32,11 +32,13 @@ function display_sql($sql_query, $col_arr) {
     while($value = $result->fetch_array(MYSQLI_NUM)){
         echo '<tr>';
         echo '<td><a href="/details.php?mov='.$value[0].'"><span class="glyphicon glyphicon-search">';
-        echo '<i class="bi bi-link"></i>'; // search icon of Bootstrap Icons
+        echo '<i class="bi bi-info-circle"></i>'; // search icon of Bootstrap Icons
         echo '</span></a></td>';
         for($i=1; $i<count($value); $i++){
             echo '<td>' . $value[$i] . '</td>';
         }
+        
+
         echo '</tr>';
     }
     echo '</table>';
@@ -68,12 +70,15 @@ function display_sql_stbr($sql_query, $col_arr) {
     
     while($value = $result->fetch_array(MYSQLI_NUM)){
         echo '<tr>';
-        echo '<td><a href="/details.php?mov='.$value[0].'"><span class="glyphicon glyphicon-search">';
-        echo '<i class="bi bi-link"></i>'; // search icon of Bootstrap Icons
+        echo '<td><a href="/pred_detail.php?mov='.$value[0].'"><span class="glyphicon glyphicon-search">';
+        echo '<i class="bi bi-info-circle"></i>'; // search icon of Bootstrap Icons
         echo '</span></a></td>';
         for($i=1; $i<count($value); $i++){
             echo '<td>' . $value[$i] . '</td>';
         }
+
+        
+
         echo '</tr>';
     }
     echo '</table>';
