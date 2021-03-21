@@ -5,7 +5,8 @@ function search_sql() {
         $query = "";
     } else {
         $query = $_GET["query"];
-        echo $query;
+        
+        echo "<p style = ' font-size:90%; margin-top: 10px; color:blue;'>Searching results for '".$query."'</p>";
     }
     
     
