@@ -86,4 +86,42 @@ function display_sql_stbr($sql_query, $col_arr) {
     $result->close();
     mysqli_close($conn);
 }
+
+function display_nolink_sql($sql_query, $col_arr) {
+    $conn = mysqli_connect("database", "user", "user", "movie_lens");
+
+    if (!$conn) {
+        echo "Error: Unable to connect to MySQL." . PHP_EOL;
+        echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+        echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+        exit;
+    }
+
+    $result = mysqli_query($conn, $sql_query) or die(mysqli_error($conn));
+
+    echo '<table class="table table-hover" table-striped">';
+
+    echo '<thead><tr>';
+    foreach ($col_arr as &$value) {
+        echo '<th>' . $value . '</th>';
+    }
+    unset($value);
+    echo '</tr></thead>';
+    
+    while($value = $result->fetch_array(MYSQLI_NUM)){
+        echo '<tr>';
+        
+        for($i=0; $i<count($value); $i++){
+            echo '<td>' . $value[$i] . '</td>';
+        }
+        
+
+        echo '</tr>';
+    }
+    echo '</table>';
+    
+    $result->close();
+    mysqli_close($conn);
+}
+
 ?>
