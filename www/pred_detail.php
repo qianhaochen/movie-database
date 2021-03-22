@@ -88,7 +88,7 @@ window.onload = function() {
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	title:{
-		text: "Distribution of rating predictions from users that hasn't rated the movie"
+		text: "Distribution of rating predictions for users that hasn't rated the movie"
 	},
     axisX: {
 		title: "Prediced rating range",
