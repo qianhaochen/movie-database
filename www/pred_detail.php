@@ -1,6 +1,9 @@
 <?php
+
 $mov_id = $_GET['mov'];
 
+
+ 
 $con = mysqli_connect("database", "user", "user", "movie_lens");
 if (!$con) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;
@@ -27,7 +30,9 @@ $rates_distribition=mysqli_fetch_all($result_rate);
 
 $range_count  = sizeof($rates_distribition);
 
+
 $stack = array();
+
 
 for ($i = 0; $i < $range_count; ++$i) {
     $x = array("y" => $rates_distribition[$i][0],"label" => $rates_distribition[$i][1] );
@@ -37,6 +42,7 @@ for ($i = 0; $i < $range_count; ++$i) {
 $sql_mov = "SELECT mov_title FROM movies WHERE mov_id=$mov_id";
 $result_mov = mysqli_query($con, $sql_mov) or die(mysqli_error($con));
 $mov=mysqli_fetch_assoc($result_mov);
+
 
 $sql_rating_info = "SELECT stbr_id, raters, ave_rating, unraters, ave_prediction 
     FROM
@@ -54,6 +60,8 @@ $sql_rating_info = "SELECT stbr_id, raters, ave_rating, unraters, ave_prediction
 $result_rating_info = mysqli_query($con, $sql_rating_info) or die(mysqli_error($con));
 $rating_info=mysqli_fetch_assoc($result_rating_info);
 
+
+
 $sql_genres ="SELECT releaseSoonMovies.mov_id AS m_id, releaseSoonMovies.mov_title AS title, 
 GROUP_CONCAT(DISTINCT gen_name SEPARATOR ', ') AS gens
         FROM moviesGenresRelation, genres,releaseSoonMovies
@@ -64,49 +72,51 @@ GROUP_CONCAT(DISTINCT gen_name SEPARATOR ', ') AS gens
 $result_genres = mysqli_query($con, $sql_genres) or die(mysqli_error($con));
 $genres=mysqli_fetch_assoc($result_genres);
 
+
+
+
 ?>
 
 <html>
-
 <head>
-  <link href="assets/css/jumbotron.css" rel="stylesheet">
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/jumbotron/">
-  <script>
-    window.onload = function () {
-
-      var chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: true,
-        title: {
-          text: "Distribution of rating predictions for users that hasn't rated the movie"
-        },
-        axisX: {
-          title: "Prediced rating range",
-          includeZero: true,
-          prefix: "",
-          suffix: ""
-        },
-
-        axisY: {
-          title: "Number of users",
-          includeZero: true,
-          prefix: "",
-          suffix: ""
-        },
-
-        data: [{
-          type: "bar",
-          yValueFormatString: "#,##0",
-          indexLabel: "{y}",
-          indexLabelPlacement: "inside",
-          indexLabelFontWeight: "bolder",
-          indexLabelFontColor: "white",
-          dataPoints: < ? php echo json_encode($stack, JSON_NUMERIC_CHECK); ? >
-        }]
-      });
-      chart.render();
-
-    }
-  </script>
+<link href="assets/css/jumbotron.css" rel="stylesheet">
+<link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/jumbotron/">
+<script>
+window.onload = function() {
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title:{
+		text: "Distribution of rating predictions for users that hasn't rated the movie"
+	},
+    axisX: {
+		title: "Prediced rating range",
+		includeZero: true,
+		prefix: "",
+		suffix:  ""
+	},
+    
+	axisY: {
+		title: "Number of users",
+		includeZero: true,
+		prefix: "",
+		suffix:  ""
+	},
+    
+	data: [{
+		type: "bar",
+		yValueFormatString: "#,##0",
+		indexLabel: "{y}",
+		indexLabelPlacement: "inside",
+		indexLabelFontWeight: "bolder",
+		indexLabelFontColor: "white",
+		dataPoints: <?php echo json_encode($stack, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chart.render();
+ 
+}
+</script>
 </head>
 
 <body>
@@ -115,70 +125,69 @@ $genres=mysqli_fetch_assoc($result_genres);
     include('_display.php');
   ?>
 
-  <main role="main">
+<main role="main">
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron" style="height: 200px; width: 100%;margin-top: 15px;">
-      <div class="container">
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron" style="height: 200px; width: 100%;margin-top: 15px;">
+  <div class="container">
 
-        <?php
+  <?php
                 echo "<h1 class='display-3''>".$mov["mov_title"]."</h1>";
 
                 echo "<p style = ' font-size:150%; margin-top: 15px; color:grey;'>".$genres["gens"]."</p>";
           ?>
-      </div>
-    </div>
+  </div>
+</div>
 
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-3">
+<div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-md-3">
           <?php
                 echo "<h2 style = 'text-align: center;'>".$rating_info["raters"]."</h2>";
 
           ?>
-
-          <p style='text-align: center; font-size:90%;'>users has already rated</p>
-        </div>
-        <div class="col-md-3">
+            
+            <p style = 'text-align: center; font-size:90%;'>users has already rated</p>
+          </div>
+          <div class="col-md-3">
 
           <?php
                 echo "<h2 style = 'text-align: center;'>".$rating_info["ave_rating"]."/5</h2>";
 
           ?>
-          <p style='text-align: center; font-size:90%;'>is the average of existing ratings</p>
-        </div>
-        <div class="col-md-3">
-
+            <p style = 'text-align: center; font-size:90%;'>is the average of existing ratings</p>
+          </div>
+          <div class="col-md-3">
+         
           <?php
                 echo "<h2 style = 'text-align: center;'>".$rating_info["unraters"]."</h2>";
 
           ?>
-          <p style='text-align: center; font-size:90%;'>user hasn't rated yet</p>
-        </div>
-
-        <div class="col-md-3">
-
+            <p style = 'text-align: center; font-size:90%;'>user hasn't rated yet</p>
+          </div>
+          
+          <div class="col-md-3">
+          
           <?php
                 echo "<h2 style = 'text-align: center;'>".$rating_info["ave_prediction"]."/5</h2>";
 
           ?>
-          <p style='text-align: center; font-size:90%;'>is the average of rating predictions</p>
+            <p style = 'text-align: center; font-size:90%;'>is the average of rating predictions</p>
+          </div>
         </div>
-      </div>
 
-      <hr>
+        <hr>
 
-    </div> <!-- /container -->
+      </div> <!-- /container -->
 
-  </main>
+</main>
 
 
-  <div id="chartContainer" style="height: 370px; width: 80%;margin-top: 20px; margin-left: auto;margin-right: auto;">
-  </div>
-  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<div id="chartContainer" style="height: 370px; width: 80%;margin-top: 20px; margin-left: auto;margin-right: auto;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-  <?php 
+<?php 
     include('footer.php');
 
   ?>
