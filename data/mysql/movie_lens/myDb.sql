@@ -241,3 +241,23 @@ GROUP BY userMovieNotRated.user_id, userMovieNotRated.mov_id
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE IF NOT EXISTS `shrekTestPred` (
+SELECT userMovieNotRated.user_id,userMovieNotRated.mov_id, 
+aves_target.avg_rating + SUM((ratings.rating-aves.avg_rating)*userCorrelation.corr)/ SUM(corr) 
+AS prediction 
+FROM ratings, userCorrelation, (SELECT user_id,mov_id FROM
+ratings 
+WHERE mov_id = 4306 AND user_id < 150) AS userMovieNotRated,
+(SELECT user_id, AVG(rating) AS avg_rating FROM ratings  WHERE NOT (mov_id = 4306 AND user_id < 150)
+GROUP BY user_id) AS aves, 
+(SELECT user_id, AVG(rating) AS avg_rating FROM ratings  WHERE NOT (mov_id = 4306 AND user_id < 150)
+GROUP BY user_id) 
+AS aves_target
+WHERE ratings.mov_id =userMovieNotRated.mov_id 
+AND userMovieNotRated.mov_id IN (SELECT mov_id FROM releaseSoonMovies WHERE mov_id = 4306) 
+AND ratings.user_id = aves.user_id 
+AND userCorrelation.user_1 = ratings.user_id 
+AND userCorrelation.user_2 = userMovieNotRated.user_id 
+AND aves_target.user_id = userMovieNotRated.user_id 
+GROUP BY userMovieNotRated.user_id, userMovieNotRated.mov_id
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
