@@ -46,10 +46,10 @@
       <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link " href="/home.php">Movielens</a>
+            <a class="nav-link active" href="/home.php">Movielens</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/stbr_movies.php">Soon-to-be-released</a>
+            <a class="nav-link" aria-current="page" href="/stbr_movies.php">Soon-to-be-released</a>
           </li>
         </ul>
       </div>
