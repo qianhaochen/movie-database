@@ -1,6 +1,8 @@
 #  Movie Database
 
-![Landing Page](www/assets/Screenshot.png)
+![Landing Page](www/assets/LandingPage.png)
+
+![Detail Page](www/assets/DetailPage.png)
 
 The Movie Database is a web application built on Bootstrap, jQuery and LAMP stack built with Docker Compose.
 
@@ -38,35 +40,7 @@ This Docker Stack is build for local development and not for production usage.
 
 ### Configuration
 This package comes with default configuration options. You can modify them by creating `.env` file in your root directory.
-
-## Web Server
-
-Apache is configured to run on port 80. So, you can access it via `http://localhost`.
-
-#### Connect via SSH
-
-You can connect to web server using `docker-compose exec` command to perform various operation on it. Use below command to login to container via ssh.
-
-```shell
-docker-compose exec webserver bash
-```
-
-## PHP
-
-The installed version of depends on your `.env`file. 
-
-
-## phpMyAdmin
-
-phpMyAdmin is configured to run on port 8080. Use following default credentials.
-
-http://localhost:8080/  
-username: root  
-password: tiger
-
-## Redis
-
-It comes with Redis. It runs on default port `6379`.
+Please check the detailed version of how to use the LAMP stack built with Docker Compose in [README-DOCKER-LAMP](README-DOCKER-LAMP.md).
 
 ## Contributing
 We are happy if you want to create a pull request or help people with their issues. If you want to create a PR, please remember that this stack is not built for production usage, and changes should good for general purpose and not overspecialised. 
