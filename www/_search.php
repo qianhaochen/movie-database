@@ -19,7 +19,6 @@ function search_sql() {
         mysqli_close($conn);
         
         return $query;
-
     }
     else{ // if query length is less than minimum
         echo "Minimum length is ".$min_length;

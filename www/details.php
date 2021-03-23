@@ -165,28 +165,35 @@ $link=mysqli_fetch_assoc($result_link);
 ?>
 
 <html>
-<head>
-    
-    <?php echo "<title>".$mov["mov_title"]."</title>"; ?>
-    <meta charset="utf-8"> 
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  
+<head>
+
+    <?php echo "<title>".$mov["mov_title"]."</title>"; ?>
+    <meta charset="utf-8">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+
 </head>
+
 <body>
     <?php include('_navbar.php');?>
     <div class="container">
-    <div class="card">
-    <?php echo "<h2 class='card-header'>".$mov["mov_title"]."</h2>"; ?>
-    <div class="card-body">
-        <div class="card-group">
-        <div class="card border-light mb-3">
-        <h5 class="card-header bg-transparent">Rating</h5>
+        <div class="card">
+            <?php echo "<h2 class='card-header'>".$mov["mov_title"]."</h2>"; ?>
             <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <?php 
+                <div class="card-group">
+                    <div class="card border-light mb-3">
+                        <h5 class="card-header bg-transparent">Rating</h5>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <?php 
                 $avg_star = star_n($avg_rate["rate"]);
                 echo "<li class='list-group-item'>Average rating: ".$avg_rate["rate"];
                 print_star($avg_star);
@@ -198,20 +205,20 @@ $link=mysqli_fetch_assoc($result_link);
                 rate(2);
                 rate(1);
                 ?>
-            </ul>
-            </div>
-            <?php
+                            </ul>
+                        </div>
+                        <?php
             echo "<div class='card-footer bg-transparent'><small class='text-muted'>Last rated ".$avg_rate["t"]."</small></div>";
             ?>
-        </div>
-        <div class="card border-light mb-3">
-        <h5 class="card-header bg-transparent">Tags</h5>
-            <div class="card-body" style="height:400px;overflow-y:auto">
-            <?php echo "<form class='d-flex' name='tag_form' action='".$_SERVER["PHP_SELF"]."?mov=".$mov_id."' method='post'>"?>
-                <input class="form-control" placeholder="Add New Tags" name="tag">
-                <button class="btn btn-outline-dark" type="submit">Add</button>
-            </form>
-            <?php
+                    </div>
+                    <div class="card border-light mb-3">
+                        <h5 class="card-header bg-transparent">Tags</h5>
+                        <div class="card-body" style="height:400px;overflow-y:auto">
+                            <?php echo "<form class='d-flex' name='tag_form' action='".$_SERVER["PHP_SELF"]."?mov=".$mov_id."' method='post'>"?>
+                            <input class="form-control" placeholder="Add New Tags" name="tag">
+                            <button class="btn btn-outline-dark" type="submit">Add</button>
+                            </form>
+                            <?php
             function add_tag(){
                 global $con,$mov_id;
                 $tag = rtrim(ltrim($_POST["tag"]));
@@ -248,8 +255,8 @@ $link=mysqli_fetch_assoc($result_link);
                 add_tag();
             }
             ?>
-            <div class="row gx-3 gy-2 row-cols-auto">
-            <?php
+                            <div class="row gx-3 gy-2 row-cols-auto">
+                                <?php
             $time = array();
             foreach($tag as $element){
                 echo "<div class='btn-group' role='group'>
@@ -259,103 +266,110 @@ $link=mysqli_fetch_assoc($result_link);
                 $time[]=$element["t"];
             }
             ?>
-            </div>
-            <?php
+                            </div>
+                            <?php
             if(count($time)==0){
                 echo "<p class='card-text'>No Tags.</p>";
             }
             ?>
-            </div>
-            <?php
+                        </div>
+                        <?php
             if(count($time)!=0){
                 echo "<div class='card-footer bg-transparent'><small class='text-muted'>Last modified ".max($time)."</small></div>";
             }
             ?>
-        </div>
-        <div class="card border-light mb-3">
-        <h5 class="card-header bg-transparent">Viewers Info</h5>
-            <div class="card-body"  style="height:400px;overflow-y:auto">
-            <h8 class="card-text">Viewers with different watching experience</h8>
-            <!-- <div class="chart-container" style="position: relative; height:387px; width:300px">
+                    </div>
+                    <div class="card border-light mb-3">
+                        <h5 class="card-header bg-transparent">Viewers Info</h5>
+                        <div class="card-body" style="height:400px;overflow-y:auto">
+                            <h8 class="card-text">Viewers with different watching experience</h8>
+                            <!-- <div class="chart-container" style="position: relative; height:387px; width:300px">
                 <canvas id="myChart"></canvas>
             </div> -->
-            <canvas id="user_watch_chart" width="774" height="386"></canvas>
-            <p id="user_watch" style="visibility: hidden; margin-bottom:0">
-                <span id="user_watch_1">
-                <?php echo round($user_mov_max["num"]/$avg_rate["num"]*100,1);?>
-                </span>
-                <span id="user_watch_2">
-                <?php echo round($user_mov_mid["num"]/$avg_rate["num"]*100,1);?>
-                </span>
-                <span id="user_watch_3">
-                <?php echo round($user_mov_min["num"]/$avg_rate["num"]*100,1);?>
-                </span>
-                <span id="user_watch_4">
-                200
-                </span>
-                <span id="user_watch_5">
-                100
-                </span>
-                </p>
-            <h8 class="card-text">Viewers who tends to rate higher</h8>
-            <canvas id="user_rate_chart" width="774" height="386"></canvas>
-            <p id="user_rate" style="visibility: hidden; margin-bottom:0">
-                <span id="user_rate_1">
-                <?php echo round($user_rate_max["num"]/$avg_rate["num"]*100,1);?>
-                </span>
-                <span id="user_rate_2">
-                <?php echo round($user_rate_mid["num"]/$avg_rate["num"]*100,1);?>
-                </span>
-                <span id="user_rate_3">
-                <?php echo round($user_rate_min["num"]/$avg_rate["num"]*100,1);?>
-                </span>
-                <span id="user_rate_4">
-                3.75
-                </span>
-                <span id="user_rate_5">
-                3.25
-                </span>
-                </p>
-            <h8 class="card-text">Viewers who tags or not</h8>
-            <canvas id="user_tag_chart" width="774" height="386"></canvas>
-            <p id="user_tag" style="visibility: hidden; margin-bottom:0">
-                <span id="user_tag_1">
-                <?php echo round($user_tag["num"]/$avg_rate["num"]*100,1);?>
-                </span>
-                <span id="user_tag_2">
-                <?php echo round($user_no_tag["num"]/$avg_rate["num"]*100,1);?>
-                </span>
-                <span id="user_tag_4">
-                have tagged
-                </span>
-                <span id="user_tag_5">
-                never tagged
-                </span>
-                </p>
-            
-            <h8 class="card-text">Most liked genres</h8>
-            <ul class="list-group list-group-flush">
-            <?php
+                            <canvas id="user_watch_chart" width="774" height="386"></canvas>
+                            <p id="user_watch" style="visibility: hidden; margin-bottom:0">
+                                <span id="user_watch_1">
+                                    <?php echo round($user_mov_max["num"]/$avg_rate["num"]*100,1);?>
+                                </span>
+                                <span id="user_watch_2">
+                                    <?php echo round($user_mov_mid["num"]/$avg_rate["num"]*100,1);?>
+                                </span>
+                                <span id="user_watch_3">
+                                    <?php echo round($user_mov_min["num"]/$avg_rate["num"]*100,1);?>
+                                </span>
+                                <span id="user_watch_4">
+                                    200
+                                </span>
+                                <span id="user_watch_5">
+                                    100
+                                </span>
+                            </p>
+                            <h8 class="card-text">Viewers who tends to rate higher</h8>
+                            <canvas id="user_rate_chart" width="774" height="386"></canvas>
+                            <p id="user_rate" style="visibility: hidden; margin-bottom:0">
+                                <span id="user_rate_1">
+                                    <?php echo round($user_rate_max["num"]/$avg_rate["num"]*100,1);?>
+                                </span>
+                                <span id="user_rate_2">
+                                    <?php echo round($user_rate_mid["num"]/$avg_rate["num"]*100,1);?>
+                                </span>
+                                <span id="user_rate_3">
+                                    <?php echo round($user_rate_min["num"]/$avg_rate["num"]*100,1);?>
+                                </span>
+                                <span id="user_rate_4">
+                                    3.75
+                                </span>
+                                <span id="user_rate_5">
+                                    3.25
+                                </span>
+                            </p>
+                            <h8 class="card-text">Viewers who tags or not</h8>
+                            <canvas id="user_tag_chart" width="774" height="386"></canvas>
+                            <p id="user_tag" style="visibility: hidden; margin-bottom:0">
+                                <span id="user_tag_1">
+                                    <?php echo round($user_tag["num"]/$avg_rate["num"]*100,1);?>
+                                </span>
+                                <span id="user_tag_2">
+                                    <?php echo round($user_no_tag["num"]/$avg_rate["num"]*100,1);?>
+                                </span>
+                                <span id="user_tag_4">
+                                    have tagged
+                                </span>
+                                <span id="user_tag_5">
+                                    never tagged
+                                </span>
+                            </p>
+
+                            <h8 class="card-text">Most liked genres</h8>
+                            <ul class="list-group list-group-flush">
+                                <?php
             foreach($user_gen as $element){
                 echo "<li class='list-group-item'>".$element["gen_name"]."</li>";
             }
             ?>
-            </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        </div>
-    </div>
-    <?php
+            <?php
     echo "<div class='card-footer'>Links: <a href='http://www.imdb.com/title/tt0".$link["imdb_id"]."/'>imdb</a>, 
         <a href='https://www.themoviedb.org/movie/".$link["tmdb_id"]."/'>tmdb</a>";
         // <a href='test.php'>test</a></div>";
     ?>
-    </div>
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous">
+    </script>
+    <script src="chart.js"></script>
 
 </body>
+
 </html>
 <?php
 $result_mov->close();

@@ -1,24 +1,26 @@
 <html>
+
 <head>
 
 </head>
+
 <body>
   <?php 
     include('_navbar.php');
     include('_display.php');
   ?>
   <div class="container">
-  <div class="d-flex align-items-center p-3 my-3 text-white bg-secondary rounded shadow-sm">
-    <div class="lh-1">
-      <h1 class="h6 mb-0 text-white lh-1">Most popular</h1>
-      <small>Find the movies that has been rated the most. </small>
+    <div class="d-flex align-items-center p-3 my-3 text-white bg-secondary rounded shadow-sm">
+      <div class="lh-1">
+        <h1 class="h6 mb-0 text-white lh-1">Most popular</h1>
+        <small>Find the movies that has been rated the most. </small>
+      </div>
     </div>
-  </div>
 
 
 
-  <div class="my-3 p-3 bg-body rounded shadow-sm">
-  <?php 
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <?php 
     $sql_query = 'SELECT m_id, title,gens,ave_rating,rating_count FROM
     (SELECT moviesGenresRelation.mov_id AS m_id, 
      movies.mov_title AS title, 
@@ -37,8 +39,8 @@
     ORDER BY rating_count DESC';
     $col_arr = array('Title','Genres','Ratings','Views');
     display_sql($sql_query, $col_arr);
-  ?>  
-  </div>
+  ?>
+    </div>
   </div>
   <?php 
     include('footer.php');

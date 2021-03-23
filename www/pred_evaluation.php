@@ -84,102 +84,110 @@ $test_evaluate=mysqli_fetch_assoc($result_test_evaluate);
 ?>
 
 <html>
+
 <head>
-<link href="assets/css/jumbotron.css" rel="stylesheet">
-<link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/jumbotron/">
+  <link href="assets/css/jumbotron.css" rel="stylesheet">
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/jumbotron/">
 </head>
+
 <body>
   <?php 
     include('_stbr_navbar.php');
     include('_display.php');
   ?>
-<main role="main">
+  <main role="main">
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron" style="height: 200px; width: 100%;margin-top: 15px;">
-  <div class="container">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" style="height: 200px; width: 100%;margin-top: 15px;">
+      <div class="container">
 
-  <?php
+        <?php
                 echo "<h1 class='display-3''>".$mov["mov_title"]."</h1>";
 
                 echo "<p style = ' font-size:150%; margin-top: 15px; color:grey;'>".$genres["gens"]."</p>";
           ?>
-  </div>
-</div>
+      </div>
+    </div>
 
-<div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-3">
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-3">
           <?php
                 echo "<h2 style = 'text-align: center;'>".$rating_info["raters"]."</h2>";
 
           ?>
-            
-            <p style = 'text-align: center; font-size:90%;'>users has already rated</p>
-          </div>
-          <div class="col-md-3">
+
+          <p style='text-align: center; font-size:90%;'>users has already rated</p>
+        </div>
+        <div class="col-md-3">
 
           <?php
                 echo "<h2 style = 'text-align: center;'>".$rating_info["ave_rating"]."/5</h2>";
 
           ?>
-            <p style = 'text-align: center; font-size:90%;'>is the average of existing ratings</p>
-          </div>
-          <div class="col-md-3">
-         
+          <p style='text-align: center; font-size:90%;'>is the average of existing ratings</p>
+        </div>
+        <div class="col-md-3">
+
           <?php
                 echo "<h2 style = 'text-align: center;'>".$rating_info["unraters"]."</h2>";
 
           ?>
-            <p style = 'text-align: center; font-size:90%;'>user hasn't rated yet</p>
-          </div>
-          
-          <div class="col-md-3">
-          
+          <p style='text-align: center; font-size:90%;'>user hasn't rated yet</p>
+        </div>
+
+        <div class="col-md-3">
+
           <?php
                 echo "<h2 style = 'text-align: center;'>".$rating_info["ave_prediction"]."/5</h2>";
 
           ?>
-            <p style = 'text-align: center; font-size:90%;'>is the average of rating predictions</p>
-          </div>
+          <p style='text-align: center; font-size:90%;'>is the average of rating predictions</p>
         </div>
+      </div>
 
-        <hr>
+      <hr>
 
-      </div> <!-- /container -->
+    </div> <!-- /container -->
 
-</main>
+  </main>
   <div class="container">
- <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
 
- <h2 style = 'text-align: left;'>Evaluation Method</h2>
- <p> From the 170 users that has rated the movie, we make the users with user ID smaller than 150 a test dataset (42 users), 
- and make the users with user ID larger or equal than 150 a train dataset (128 users). We let collaborative filtering method train on the ratings dataset that excludes the testset then we use the method to predict rating for users in test set.
- By comparing the results of prediction and the actual rating from users in test set, we can roughly understand how well the algorithm perform in predicting rating.
-  </p>
- <h2 style = 'text-align: left;'>Results</h2>
+      <h2 style='text-align: left;'>Evaluation Method</h2>
+      <p> From the 170 users that has rated the movie, we make the users with user ID smaller than 150 a test dataset
+        (42 users),
+        and make the users with user ID larger or equal than 150 a train dataset (128 users). We let collaborative
+        filtering method train on the ratings dataset that excludes the testset then we use the method to predict rating
+        for users in test set.
+        By comparing the results of prediction and the actual rating from users in test set, we can roughly understand
+        how well the algorithm perform in predicting rating.
+      </p>
+      <h2 style='text-align: left;'>Results</h2>
 
 
- <table class="table">
- <thead ><tr>
- <th>Average of actual ratings on test set</th>
- <th>Average of predicted ratings on test set</th>
- <th>RMSE</th>
- </tr></thead>
- <tr>
- <?php
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Average of actual ratings on test set</th>
+            <th>Average of predicted ratings on test set</th>
+            <th>RMSE</th>
+          </tr>
+        </thead>
+        <tr>
+          <?php
  echo '<td>' . $test_evaluate["ave_test_rating"] . '</td>';
  echo '<td>' . $test_evaluate["ave_test_prediction"] . '</td>';
  echo '<td>' . $test_evaluate["pred_rmse"]. '</td>';
  ?>
- </tr>
- </table>
+        </tr>
+      </table>
 
- <h3> All Predictions on test set
-  </h3>
+      <h3> All Predictions on test set
+      </h3>
 
-  <?php 
+      <?php 
   
     $sql_query = "SELECT shrekTestPred.user_id,testSet.rating , ROUND(shrekTestPred.prediction,4), ROUND(ABS(testSet.rating - shrekTestPred.prediction) ,4) as pred_dif  FROM `shrekTestPred`,
     (SELECT user_id,mov_id, rating FROM
@@ -189,8 +197,8 @@ $test_evaluate=mysqli_fetch_assoc($result_test_evaluate);
     ORDER BY pred_dif ASC";
     $col_arr = array( 'User ID','Rating','Prediction', 'Difference');
     display_nolink_sql($sql_query, $col_arr);
-  ?>  
-  </div>
+  ?>
+    </div>
   </div>
   <?php 
     include('footer.php');
