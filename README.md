@@ -19,7 +19,7 @@ relation to data for ratings to all movies).
 - [x] 5. Predicting the likely viewer ratings for a soon-to-be-released film based on the tags and or ratings for the film provided by
 a preview panel of viewers drawn from the population of viewers in the database.
 
-##  Installation
+##  Installation and Configuration
  
 * Clone this repository on your local computer
 * configure .env as needed
@@ -33,14 +33,11 @@ docker-compose up -d
 
 Your LAMP stack is now ready!! You can access it via `http://localhost`.
 
-##  Configuration and Usage
-
-### General Information 
-This Docker Stack is build for local development and not for production usage.
-
 ### Configuration
 This package comes with default configuration options. You can modify them by creating `.env` file in your root directory.
-Please check the detailed version of how to use the LAMP stack built with Docker Compose in [README-DOCKER-LAMP](README-DOCKER-LAMP.md).
+
+### Usage
+Please check the detailed version of how to use the [LAMP stack built with Docker Compose](README-DOCKER-LAMP.md).
 
 ## Contributing
 We are happy if you want to create a pull request or help people with their issues. If you want to create a PR, please remember that this stack is not built for production usage, and changes should good for general purpose and not overspecialised. 
