@@ -1,10 +1,10 @@
 #  Movie Database
 
+The Movie Database is a web application built on Bootstrap, jQuery and LAMP stack built with Docker Compose.
+
 ![Landing Page](www/assets/LandingPage.png)
 
 ![Detail Page](www/assets/DetailPage.png)
-
-The Movie Database is a web application built on Bootstrap, jQuery and LAMP stack built with Docker Compose.
 
 It makes use of the MovieLens data (http://files.grouplens.org/datasets/movielens/ml-latest-small.zip) which consists of information about movies and ratings and tags of movies provided by viewers, etc. The system is intended to enable marketing professionals to analyse how audiences have responded to films that have been released, and to help them understand the market for films that they are planning. It is intended to help them better understand the different kinds of viewers of movies and their varying preferences. The core functions that your system should provide are these:
 
@@ -37,7 +37,7 @@ Your LAMP stack is now ready!! You can access it via `http://localhost`.
 This package comes with default configuration options. You can modify them by creating `.env` file in your root directory.
 
 ### Usage
-Please check the detailed version of how to use the [LAMP stack built with Docker Compose](README-DOCKER-LAMP.md).
+Please check the detailed version of [how to use the LAMP stack built with Docker Compose](README-DOCKER-LAMP.md).
 
 ## Contributing
 We are happy if you want to create a pull request or help people with their issues. If you want to create a PR, please remember that this stack is not built for production usage, and changes should good for general purpose and not overspecialised. 
