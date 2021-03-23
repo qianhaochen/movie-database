@@ -96,13 +96,14 @@ $test_evaluate=mysqli_fetch_assoc($result_test_evaluate);
     include('_display.php');
   ?>
   <main role="main">
+  
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron" style="height: 200px; width: 100%;margin-top: 15px;">
       <div class="container">
 
         <?php
-                echo "<h1 class='display-3''>".$mov["mov_title"]."</h1>";
+                echo "<h1 class='display-3''>Evaluate predictions for ".$mov["mov_title"]."</h1>";
 
                 echo "<p style = ' font-size:150%; margin-top: 15px; color:grey;'>".$genres["gens"]."</p>";
           ?>
